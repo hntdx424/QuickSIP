@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>QuickSIP.Core</RootNamespace>
+    <AssemblyName>QuickSIP.Core</AssemblyName>
+    <Description>Shared settings, tone, DTMF, and SIP helper logic for QuickSIP.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.1" />
+  </ItemGroup>
+</Project>
