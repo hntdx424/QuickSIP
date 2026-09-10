@@ -1,0 +1,108 @@
+<Window x:Class="QuickSIP.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="QuickSIP"
+        Height="720" Width="420"
+        MinHeight="640" MinWidth="380"
+        WindowStartupLocation="CenterScreen"
+        PreviewKeyDown="OnPreviewKeyDown"
+        Loaded="OnLoaded"
+        Closing="OnClosing">
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Background="{StaticResource PanelBrush}" Padding="16,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="QuickSIP" FontSize="20" FontWeight="SemiBold" Foreground="{StaticResource AmberBrush}"/>
+                    <TextBlock x:Name="StatusText" Text="Unregistered" Foreground="{StaticResource MutedTextBrush}" Margin="0,2,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Ellipse x:Name="RegDot" Width="10" Height="10" Fill="#FF6B7280" Margin="0,0,8,0"/>
+                    <Button Content="Register" Style="{StaticResource ActionButton}" Width="88" Click="OnRegister" Margin="0"/>
+                    <Button Content="Unregister" Style="{StaticResource ActionButton}" Width="96" Click="OnUnregister" Margin="4,4,0,4"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border x:Name="IncomingBar" DockPanel.Dock="Top" Background="{StaticResource IncomingBrush}" Padding="12,10" Visibility="Collapsed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Incoming call" FontWeight="SemiBold" Foreground="{StaticResource GreenBrush}"/>
+                    <TextBlock x:Name="IncomingFromText" Text="" TextWrapping="Wrap"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="Answer" Style="{StaticResource PrimaryAction}" Width="88" Click="OnAnswer"/>
+                    <Button Content="Reject" Style="{StaticResource DangerAction}" Width="88" Click="OnReject"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border x:Name="BannerBar" DockPanel.Dock="Bottom" Background="{StaticResource BannerBrush}" Padding="12,8" Visibility="Collapsed">
+            <TextBlock x:Name="BannerText" TextWrapping="Wrap" Foreground="#FFFFC9C9"/>
+        </Border>
+
+        <Border DockPanel.Dock="Bottom" Padding="12,8,12,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="HintText" Text="Ctrl+Shift shortcuts · Esc hang up · Enter dial" Foreground="{StaticResource MutedTextBrush}" VerticalAlignment="Center" FontSize="11"/>
+                <Button Grid.Column="1" Style="{StaticResource SettingsButton}" Click="OnSettings" ToolTip="SIP server, audio, shortcuts, recordings">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="⚙" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Settings" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="16,16,16,8">
+                <Border Background="#FF0B0E13" CornerRadius="10" Padding="12,10" Margin="0,0,0,12">
+                    <TextBox x:Name="NumberBox"
+                             FontFamily="Consolas"
+                             FontSize="22"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             CaretBrush="{StaticResource AmberBrush}"
+                             TextChanged="OnNumberChanged"
+                             GotKeyboardFocus="OnNumberGotFocus"/>
+                </Border>
+
+                <UniformGrid Columns="3" Margin="0,0,0,8">
+                    <Button Style="{StaticResource PadButton}" Click="OnDigit"><StackPanel><TextBlock Text="1" HorizontalAlignment="Center"/><TextBlock Text="" FontSize="10" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center"/></StackPanel></Button>
+                    <Button Style="{StaticResource PadButton}" Click="OnDigit"><StackPanel><TextBlock Text="2" HorizontalAlignment="Center"/><TextBlock Text="ABC" FontSize="10" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center"/></StackPanel></Button>
+                    <Button Style="{StaticResource PadButton}" Click="OnDigit"><StackPanel><TextBlock Text="3" HorizontalAlignment="Center"/><TextBlock Text="DEF" FontSize="10" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center"/></StackPanel></Button>
+                    <Button Style="{StaticResource PadButton}" Click="OnDigit"><StackPanel><TextBlock Text="4" HorizontalAlignment="Center"/><TextBlock Text="GHI" FontSize="10" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center"/></StackPanel></Button>
+                    <Button Style="{StaticResource PadButton}" Click="OnDigit"><StackPanel><TextBlock Text="5" HorizontalAlignment="Center"/><TextBlock Text="JKL" FontSize="10" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center"/></StackPanel></Button>
+                    <Button Style="{StaticResource PadButton}" Click="OnDigit"><StackPanel><TextBlock Text="6" HorizontalAlignment="Center"/><TextBlock Text="MNO" FontSize="10" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center"/></StackPanel></Button>
+                    <Button Style="{StaticResource PadButton}" Click="OnDigit"><StackPanel><TextBlock Text="7" HorizontalAlignment="Center"/><TextBlock Text="PQRS" FontSize="10" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center"/></StackPanel></Button>
+                    <Button Style="{StaticResource PadButton}" Click="OnDigit"><StackPanel><TextBlock Text="8" HorizontalAlignment="Center"/><TextBlock Text="TUV" FontSize="10" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center"/></StackPanel></Button>
+                    <Button Style="{StaticResource PadButton}" Click="OnDigit"><StackPanel><TextBlock Text="9" HorizontalAlignment="Center"/><TextBlock Text="WXYZ" FontSize="10" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center"/></StackPanel></Button>
+                    <Button Style="{StaticResource PadButton}" Content="*" Click="OnDigit"/>
+                    <Button Style="{StaticResource PadButton}" Content="0" Click="OnDigit"/>
+                    <Button Style="{StaticResource PadButton}" Content="#" Click="OnDigit"/>
+                </UniformGrid>
+
+                <UniformGrid Columns="2" Margin="0,4,0,4">
+                    <Button x:Name="DialButton" Content="Dial" Style="{StaticResource PrimaryAction}" Click="OnDial"/>
+                    <Button x:Name="HangupButton" Content="Hang up" Style="{StaticResource DangerAction}" Click="OnHangup"/>
+                    <Button x:Name="HoldButton" Content="Hold" Style="{StaticResource ActionButton}" Click="OnHold"/>
+                    <Button x:Name="MuteButton" Content="Mute" Style="{StaticResource ActionButton}" Click="OnMute"/>
+                    <Button Content="Blind transfer" Style="{StaticResource ActionButton}" Click="OnBlindTransfer"/>
+                    <Button Content="Attended transfer" Style="{StaticResource ActionButton}" Click="OnAttendedTransfer"/>
+                    <Button x:Name="RecordButton" Content="Record" Style="{StaticResource ActionButton}" Click="OnRecord"/>
+                    <Button Content="Backspace" Style="{StaticResource ActionButton}" Click="OnBackspace"/>
+                </UniformGrid>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

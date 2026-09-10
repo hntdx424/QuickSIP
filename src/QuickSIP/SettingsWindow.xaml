@@ -1,0 +1,103 @@
+<Window x:Class="QuickSIP.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="QuickSIP Settings"
+        Height="720" Width="560"
+        MinHeight="560" MinWidth="480"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResizeWithGrip">
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Padding="16,12" Background="{StaticResource PanelBrush}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Cancel" Style="{StaticResource ActionButton}" Width="100" IsCancel="True" Click="OnCancel"/>
+                <Button Content="Save" Style="{StaticResource PrimaryAction}" Width="100" IsDefault="True" Click="OnSave"/>
+            </StackPanel>
+        </Border>
+        <ScrollViewer Padding="20">
+            <StackPanel>
+                <TextBlock Text="SIP account" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource AmberBrush}" Margin="0,0,0,8"/>
+                <Label Content="SIP server"/>
+                <TextBox x:Name="SipServerBox"/>
+                <Grid Margin="0,8,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <Label Content="Port"/>
+                        <TextBox x:Name="SipPortBox"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <Label Content="Transport"/>
+                        <ComboBox x:Name="TransportBox">
+                            <ComboBoxItem Content="udp"/>
+                            <ComboBoxItem Content="tcp"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+                <Label Content="Username / extension" Margin="0,8,0,0"/>
+                <TextBox x:Name="UsernameBox"/>
+                <Label Content="Auth username (optional)" Margin="0,8,0,0"/>
+                <TextBox x:Name="AuthUsernameBox"/>
+                <Label Content="Password (stored with Windows DPAPI)" Margin="0,8,0,0"/>
+                <PasswordBox x:Name="PasswordBox"/>
+                <Label Content="Display name" Margin="0,8,0,0"/>
+                <TextBox x:Name="DisplayNameBox"/>
+                <Label Content="Domain (blank = SIP server)" Margin="0,8,0,0"/>
+                <TextBox x:Name="DomainBox"/>
+                <Grid Margin="0,8,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <Label Content="Register expiry (seconds)"/>
+                        <TextBox x:Name="ExpiryBox"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <Label Content="Local SIP port (0 = auto)"/>
+                        <TextBox x:Name="LocalPortBox"/>
+                    </StackPanel>
+                </Grid>
+                <CheckBox x:Name="RegisterOnStartupBox" Content="Register when QuickSIP starts" Margin="0,12,0,0"/>
+
+                <TextBlock Text="Audio" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource AmberBrush}" Margin="0,24,0,8"/>
+                <Label Content="Microphone"/>
+                <ComboBox x:Name="InputDeviceBox" DisplayMemberPath="Name"/>
+                <Label Content="Speaker" Margin="0,8,0,0"/>
+                <ComboBox x:Name="OutputDeviceBox" DisplayMemberPath="Name"/>
+
+                <TextBlock Text="Recordings" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource AmberBrush}" Margin="0,24,0,8"/>
+                <Label Content="Folder (stereo 8 kHz WAV, left = mic, right = remote)"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="RecordingsBox"/>
+                    <Button Grid.Column="1" Content="Browse…" Style="{StaticResource ActionButton}" Width="96" Click="OnBrowseRecordings" Margin="8,4,0,4"/>
+                </Grid>
+
+                <TextBlock Text="Shortcuts" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource AmberBrush}" Margin="0,24,0,8"/>
+                <CheckBox x:Name="EnableShortcutsBox" Content="Enable Ctrl+Shift shortcuts" Margin="0,0,0,8"/>
+                <TextBlock Text="Escape hangs up. Enter dials. Numpad * sends *; numpad / sends #." Foreground="{StaticResource MutedTextBrush}" TextWrapping="Wrap" Margin="0,0,0,8"/>
+                <ItemsControl x:Name="ShortcutList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="140"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Display}" FontFamily="Consolas" Foreground="{StaticResource AmberBrush}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Description}" Foreground="{StaticResource TextBrush}" TextWrapping="Wrap"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
